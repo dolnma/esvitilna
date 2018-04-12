@@ -2,75 +2,87 @@
 /**
  * The template for displaying 404 pages (not found).
  *
- * @package storefront
+ * @package understrap
  */
 
-get_header(); ?>
+get_header();
 
-	<div id="primary" class="content-area">
+$container   = get_theme_mod( 'understrap_container_type' );
+$sidebar_pos = get_theme_mod( 'understrap_sidebar_position' );
 
-		<main id="main" class="site-main" role="main">
+?>
 
-			<div class="error-404 not-found">
+<div class="wrapper" id="error-404-wrapper">
 
-				<div class="page-content">
+	<div class="<?php echo esc_attr( $container ); ?>" id="content" tabindex="-1">
 
-					<header class="page-header">
-						<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'storefront' ); ?></h1>
-					</header><!-- .page-header -->
+		<div class="row">
 
-					<p><?php esc_html_e( 'Nothing was found at this location. Try searching, or check out the links below.', 'storefront' ); ?></p>
+			<div class="col-md-12 content-area" id="primary">
 
-					<?php
-					echo '<section aria-label="' . esc_html__( 'Search', 'storefront' ) . '">';
+				<main class="site-main" id="main">
 
-					if ( storefront_is_woocommerce_activated() ) {
-						the_widget( 'WC_Widget_Product_Search' );
-					} else {
-						get_search_form();
-					}
+					<section class="error-404 not-found">
 
-					echo '</section>';
+						<header class="page-header">
 
-					if ( storefront_is_woocommerce_activated() ) {
+							<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.',
+							'understrap' ); ?></h1>
 
-						echo '<div class="fourohfour-columns-2">';
+						</header><!-- .page-header -->
 
-							echo '<section class="col-1" aria-label="' . esc_html__( 'Promoted Products', 'storefront' ) . '">';
+						<div class="page-content">
 
-								storefront_promoted_products();
+							<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?',
+							'understrap' ); ?></p>
 
-							echo '</section>';
+							<?php get_search_form(); ?>
 
-							echo '<nav class="col-2" aria-label="' . esc_html__( 'Product Categories', 'storefront' ) . '">';
+							<?php the_widget( 'WP_Widget_Recent_Posts' ); ?>
 
-								echo '<h2>' . esc_html__( 'Product Categories', 'storefront' ) . '</h2>';
+							<?php if ( understrap_categorized_blog() ) : // Only show the widget if site has multiple categories. ?>
 
-								the_widget( 'WC_Widget_Product_Categories', array(
-									'count' => 1,
-								) );
+								<div class="widget widget_categories">
 
-							echo '</nav>';
+									<h2 class="widget-title"><?php esc_html_e( 'Most Used Categories', 'understrap' ); ?></h2>
 
-						echo '</div>';
+									<ul>
+										<?php
+										wp_list_categories( array(
+											'orderby'    => 'count',
+											'order'      => 'DESC',
+											'show_count' => 1,
+											'title_li'   => '',
+											'number'     => 10,
+										) );
+										?>
+									</ul>
 
-						echo '<section aria-label="' . esc_html__( 'Popular Products', 'storefront' ) . '">';
+								</div><!-- .widget -->
 
-							echo '<h2>' . esc_html__( 'Popular Products', 'storefront' ) . '</h2>';
+							<?php endif; ?>
 
-							echo storefront_do_shortcode( 'best_selling_products', array(
-								'per_page' => 4,
-								'columns'  => 4,
-							) );
+							<?php
 
-						echo '</section>';
-					}
-					?>
+							/* translators: %1$s: smiley */
+							$archive_content = '<p>' . sprintf( esc_html__( 'Try looking in the monthly archives. %1$s', 'understrap' ), convert_smilies( ':)' ) ) . '</p>';
+							the_widget( 'WP_Widget_Archives', 'dropdown=1', "after_title=</h2>$archive_content" );
 
-				</div><!-- .page-content -->
-			</div><!-- .error-404 -->
+							the_widget( 'WP_Widget_Tag_Cloud' );
+							?>
 
-		</main><!-- #main -->
-	</div><!-- #primary -->
+						</div><!-- .page-content -->
 
-<?php get_footer();
+					</section><!-- .error-404 -->
+
+				</main><!-- #main -->
+
+			</div><!-- #primary -->
+
+		</div><!-- .row -->
+
+	</div><!-- Container end -->
+
+</div><!-- Wrapper end -->
+
+<?php get_footer(); ?>

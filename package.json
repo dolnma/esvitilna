@@ -1,41 +1,57 @@
 {
-  "name": "storefront",
-  "title": "Storefront",
-  "version": "2.2.8",
-  "homepage": "http://woocommerce.com/storefront/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/woothemes/storefront.git"
-  },
+  "name": "understrap",
+  "version": "0.8.1",
+  "description": "WordPress Theme framework",
+  "main": "index.js",
   "scripts": {
-    "build": "grunt",
-    "css": "grunt css",
-    "watch": "grunt watch"
-  },
-  "license": "GPL-2.0+",
-  "main": "Gruntfile.js",
-  "devDependencies": {
-    "autoprefixer": "^6.7.7",
-    "grunt": "~1.0.1",
-    "grunt-checktextdomain": "^1.0.1",
-    "grunt-contrib-compress": "^1.4.3",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "~2.1.0",
-    "grunt-contrib-jshint": "~1.1.0",
-    "grunt-contrib-uglify": "~2.3.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-postcss": "^0.8.0",
-    "grunt-rtlcss": "~2.0.1",
-    "grunt-sass": "~2.0.0",
-    "grunt-stylelint": "~0.9.0",
-    "grunt-wp-i18n": "^1.0.0",
-    "node-bourbon": "~4.2.8",
-    "node-sass": "~4.5.2",
-    "stylelint": "~8.2.0",
-    "susy": "~2.2.12"
+    "postinstall": "gulp copy-assets"
   },
   "engines": {
-    "node": ">=0.8.0",
-    "npm": ">=1.1.0"
+    "npm": ">=2.1.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/holger1411/understrap.git"
+  },
+  "keywords": [
+    "wordpress",
+    "theme",
+    "framework",
+    "bootstrap",
+    "underscores"
+  ],
+  "author": "Holger Koenemann",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/holger1411/understrap/issues"
+  },
+  "homepage": "https://understrap.com",
+  "dependencies": {
+    "bootstrap": "4.0.0",
+    "browser-sync": "^2.23.6",
+    "del": "^3.0.0",
+    "font-awesome": "^4.7.0",
+    "gulp": "3.9.1",
+    "gulp-clean-css": "^3.9.2",
+    "gulp-clone": "2.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-ignore": "^2.0.2",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-merge": "^0.1.1",
+    "gulp-plumber": "^1.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.6.1",
+    "gulp-rimraf": "^0.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sequence": "1.0.0",
+    "gulp-sourcemaps": "2.6.2",
+    "gulp-uglify": "^3.0.0",
+    "gulp-watch": "5.0.0",
+    "merge2": "^1.2.1",
+    "popper.js": "^1.12.9",
+    "run-sequence": "^2.2.1",
+    "undescores-for-npm": "^1.0.0",
+    "gulp-autoprefixer": "^5.0.0"
   }
 }

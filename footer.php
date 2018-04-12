@@ -4,36 +4,56 @@
  *
  * Contains the closing of the #content div and all content after
  *
- * @package storefront
+ * @package understrap
  */
 
+$the_theme = wp_get_theme();
+$container = get_theme_mod( 'understrap_container_type' );
 ?>
 
-		</div><!-- .col-full -->
-	</div><!-- #content -->
+<?php get_sidebar( 'footerfull' ); ?>
 
-	<?php do_action( 'storefront_before_footer' ); ?>
+<div class="wrapper" id="wrapper-footer">
 
-	<footer id="colophon" class="site-footer" role="contentinfo">
-		<div class="col-full">
+	<div class="<?php echo esc_attr( $container ); ?>">
 
-			<?php
-			/**
-			 * Functions hooked in to storefront_footer action
-			 *
-			 * @hooked storefront_footer_widgets - 10
-			 * @hooked storefront_credit         - 20
-			 */
-			do_action( 'storefront_footer' ); ?>
+		<div class="row">
 
-		</div><!-- .col-full -->
-	</footer><!-- #colophon -->
+			<div class="col-md-12">
 
-	<?php do_action( 'storefront_after_footer' ); ?>
+				<footer class="site-footer" id="colophon">
 
-</div><!-- #page -->
+					<div class="site-info">
+
+							<a href="<?php  echo esc_url( __( 'http://wordpress.org/','understrap' ) ); ?>"><?php printf( 
+							/* translators:*/
+							esc_html__( 'Proudly powered by %s', 'understrap' ),'WordPress' ); ?></a>
+								<span class="sep"> | </span>
+					
+							<?php printf( // WPCS: XSS ok.
+							/* translators:*/
+								esc_html__( 'Theme: %1$s by %2$s.', 'understrap' ), $the_theme->get( 'Name' ),  '<a href="'.esc_url( __('http://understrap.com', 'understrap')).'">understrap.com</a>' ); ?> 
+				
+							(<?php printf( // WPCS: XSS ok.
+							/* translators:*/
+								esc_html__( 'Version: %1$s', 'understrap' ), $the_theme->get( 'Version' ) ); ?>)
+					</div><!-- .site-info -->
+
+				</footer><!-- #colophon -->
+
+			</div><!--col end -->
+
+		</div><!-- row end -->
+
+	</div><!-- container end -->
+
+</div><!-- wrapper end -->
+
+</div><!-- #page we need this extra closing tag here -->
 
 <?php wp_footer(); ?>
 
 </body>
+
 </html>
+

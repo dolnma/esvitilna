@@ -1,69 +1,71 @@
 <?php
 /**
- * Storefront engine room
+ * Understrap functions and definitions
  *
- * @package storefront
+ * @package understrap
  */
 
 /**
- * Assign the Storefront version to a var
+ * Initialize theme default settings
  */
-$theme              = wp_get_theme( 'storefront' );
-$storefront_version = $theme['Version'];
+require get_template_directory() . '/inc/theme-settings.php';
 
 /**
- * Set the content width based on the theme's design and stylesheet.
+ * Theme setup and custom theme supports.
  */
-if ( ! isset( $content_width ) ) {
-	$content_width = 980; /* pixels */
-}
-
-$storefront = (object) array(
-	'version' => $storefront_version,
-
-	/**
-	 * Initialize all the things.
-	 */
-	'main'       => require 'inc/class-storefront.php',
-	'customizer' => require 'inc/customizer/class-storefront-customizer.php',
-);
-
-require 'inc/storefront-functions.php';
-require 'inc/storefront-template-hooks.php';
-require 'inc/storefront-template-functions.php';
-
-if ( class_exists( 'Jetpack' ) ) {
-	$storefront->jetpack = require 'inc/jetpack/class-storefront-jetpack.php';
-}
-
-if ( storefront_is_woocommerce_activated() ) {
-	$storefront->woocommerce = require 'inc/woocommerce/class-storefront-woocommerce.php';
-
-	require 'inc/woocommerce/storefront-woocommerce-template-hooks.php';
-	require 'inc/woocommerce/storefront-woocommerce-template-functions.php';
-}
-
-if ( is_admin() ) {
-	$storefront->admin = require 'inc/admin/class-storefront-admin.php';
-
-	require 'inc/admin/class-storefront-plugin-install.php';
-}
+require get_template_directory() . '/inc/setup.php';
 
 /**
- * NUX
- * Only load if wp version is 4.7.3 or above because of this issue;
- * https://core.trac.wordpress.org/ticket/39610?cversion=1&cnum_hist=2
+ * Register widget area.
  */
-if ( version_compare( get_bloginfo( 'version' ), '4.7.3', '>=' ) && ( is_admin() || is_customize_preview() ) ) {
-	require 'inc/nux/class-storefront-nux-admin.php';
-	require 'inc/nux/class-storefront-nux-guided-tour.php';
-
-	if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-		require 'inc/nux/class-storefront-nux-starter-content.php';
-	}
-}
+require get_template_directory() . '/inc/widgets.php';
 
 /**
- * Note: Do not add any custom code here. Please use a custom plugin so that your customizations aren't lost during updates.
- * https://github.com/woocommerce/theme-customisations
+ * Enqueue scripts and styles.
  */
+require get_template_directory() . '/inc/enqueue.php';
+
+/**
+ * Custom template tags for this theme.
+ */
+require get_template_directory() . '/inc/template-tags.php';
+
+/**
+ * Custom template tags for this theme.
+ */
+require get_template_directory() . '/inc/pagination.php';
+
+/**
+ * Custom functions that act independently of the theme templates.
+ */
+require get_template_directory() . '/inc/extras.php';
+
+/**
+ * Customizer additions.
+ */
+require get_template_directory() . '/inc/customizer.php';
+
+/**
+ * Custom Comments file.
+ */
+require get_template_directory() . '/inc/custom-comments.php';
+
+/**
+ * Load Jetpack compatibility file.
+ */
+require get_template_directory() . '/inc/jetpack.php';
+
+/**
+ * Load custom WordPress nav walker.
+ */
+require get_template_directory() . '/inc/bootstrap-wp-navwalker.php';
+
+/**
+ * Load WooCommerce functions.
+ */
+require get_template_directory() . '/inc/woocommerce.php';
+
+/**
+ * Load Editor functions.
+ */
+require get_template_directory() . '/inc/editor.php';

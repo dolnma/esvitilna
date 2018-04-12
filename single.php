@@ -2,27 +2,50 @@
 /**
  * The template for displaying all single posts.
  *
- * @package storefront
+ * @package understrap
  */
 
-get_header(); ?>
+get_header();
+$container   = get_theme_mod( 'understrap_container_type' );
+?>
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+<div class="wrapper" id="single-wrapper">
 
-		<?php while ( have_posts() ) : the_post();
+	<div class="<?php echo esc_attr( $container ); ?>" id="content" tabindex="-1">
 
-			do_action( 'storefront_single_post_before' );
+		<div class="row">
 
-			get_template_part( 'content', 'single' );
+			<!-- Do the left sidebar check -->
+			<?php get_template_part( 'global-templates/left-sidebar-check' ); ?>
 
-			do_action( 'storefront_single_post_after' );
+			<main class="site-main" id="main">
 
-		endwhile; // End of the loop. ?>
+				<?php while ( have_posts() ) : the_post(); ?>
 
-		</main><!-- #main -->
-	</div><!-- #primary -->
+					<?php get_template_part( 'loop-templates/content', 'single' ); ?>
 
-<?php
-do_action( 'storefront_sidebar' );
-get_footer();
+						<?php understrap_post_nav(); ?>
+
+					<?php
+					// If comments are open or we have at least one comment, load up the comment template.
+					if ( comments_open() || get_comments_number() ) :
+						comments_template();
+					endif;
+					?>
+
+				<?php endwhile; // end of the loop. ?>
+
+			</main><!-- #main -->
+
+		</div><!-- #primary -->
+
+		<!-- Do the right sidebar check -->
+		<?php get_template_part( 'global-templates/right-sidebar-check' ); ?>
+
+	</div><!-- .row -->
+
+</div><!-- Container end -->
+
+</div><!-- Wrapper end -->
+
+<?php get_footer(); ?>
